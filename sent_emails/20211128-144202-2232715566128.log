@@ -1,0 +1,22 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: TestSite password reset
+From: TestSite Team <noreply@example.com>
+To: eyupsagdis39@gmail.com
+Date: Sun, 28 Nov 2021 11:42:02 -0000
+Message-ID: <163809972235.21556.13627734550909639233@DESKTOP-2M9HVL1>
+
+
+To initiate the password reset process for your a TestSite Account,
+click the link below:
+
+http://127.0.0.1:8000/accounts/reset/NQ/awtvi2-8e41c02a9f6572c8dce0f2ffa5f8107a/
+
+If clicking the link above doesn't work, please copy and paste the URL in a new browser
+window instead.
+
+Sincerely,
+The TestSite Team
+
+-------------------------------------------------------------------------------
