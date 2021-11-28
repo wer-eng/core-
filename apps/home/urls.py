@@ -18,7 +18,7 @@ urlpatterns = [
     path('profil.html/<int:pk>', views.post_update, name='users-edit'),
     path('profilRegister.html',views.userAdd , name="profilEkle"),
     path('usr-ogretmenler.html', views.userShow,name='kullanicilar'),
-   
+    path('delete/<int:pk>',views.post_delete, name='delete'),
  
     re_path(r'^.*\.*', views.pages, name='pages'),
 ]

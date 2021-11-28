@@ -2,7 +2,9 @@
 """
 Copyright (c) 2021 - present RoboBusters
 """
+from django.db.models import manager
 from django.http.response import Http404
+from django.urls.base import reverse_lazy
 from django.views.generic import  UpdateView
 from django.forms.forms import Form
 from django.shortcuts import get_object_or_404, render,redirect
@@ -13,6 +15,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from django.conf import settings
+from django.views.generic.edit import DeleteView
 from apps.authentication.forms import LoginForm
 from apps.home.form import ProfilDetayForm
 from apps.home.models  import ProfilDetay,JobsTable
@@ -60,15 +63,17 @@ def userShow(request):
     
     return render(request,'home/usr-ogretmenler.html',context)
 def userAdd(request):
+    user=request.user
     if request.method == "POST":
-        user = ProfilDetayForm(request.POST)
-        if user.is_valid():
-            user.save()
+        newUser = ProfilDetayForm(request.POST)
+        if newUser.is_valid():
+            newUser.save()
             return HttpResponseRedirect('/')
     else:
-        user = ProfilDetayForm()
+        newUser = ProfilDetayForm()
     context={
         'user':user,
+        'newUser' :newUser,
         'media_url':settings.MEDIA_URL}
     return render(request,'home/profilRegister.html',context)
 
@@ -121,7 +126,14 @@ def userUpdate(request):
     }
     return render(request,'home/profil1.html',context)
 
-"""class userDetail(DetailView):
-    model = ProfilDetay
-    feilds=['__all__']
-    template_name= 'home/detail.html'"""
+def post_delete(request, pk):
+    user = User.objects.get(id=pk)
+    if not request.user.is_authenticated:
+        # Eğer kullanıcı giriş yapmamış ise hata sayfası gönder
+        return Http404()
+
+    post = get_object_or_404(ProfilDetay, id=pk)
+    post.delete()
+    user.delete()
+    return HttpResponseRedirect("/")
+
